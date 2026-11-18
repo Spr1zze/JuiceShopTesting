@@ -1,0 +1,22 @@
+# Afhængigheder og build
+node_modules/
+dist/
+build/
+*.log
+
+# Værktøjs-junk
+.impeccable/
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Juice Shop runtime-data (skal ikke i repo)
+juice-shop/node_modules/
+juice-shop/dist/
+juice-shop/.git/
+juice-shop/data/*.sqlite
+juice-shop/uploads/
+juice-shop/ftp/
