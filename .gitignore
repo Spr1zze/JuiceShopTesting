@@ -1,22 +1,45 @@
-# Afhængigheder og build
+# ---- Afhængigheder og build ----
 node_modules/
 dist/
 build/
+out/
+coverage/
 *.log
+npm-debug.log*
+yarn-error.log*
 
-# Værktøjs-junk
+# ---- Test-artefakter (Jest, Playwright, k6 osv.) ----
+playwright-report/
+test-results/
+.nyc_output/
+*.lcov
+
+# ---- Værktøjs-junk ----
 .impeccable/
 .vscode/
 .idea/
+*.swp
 
-# OS
+# ---- OS ----
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Juice Shop runtime-data (skal ikke i repo)
+# ---- Miljø / hemmeligheder ----
+.env
+.env.*
+*.pem
+*.key
+
+# ---- Lokal mappe: smid ALT lokalt junk herind, det ignoreres automatisk ----
+lokalt/
+
+# ---- Juice Shop runtime-data (skal ikke i repo, bygges af Docker) ----
 juice-shop/node_modules/
 juice-shop/dist/
+juice-shop/build/
 juice-shop/.git/
+juice-shop/logs/
 juice-shop/data/*.sqlite
 juice-shop/uploads/
 juice-shop/ftp/
