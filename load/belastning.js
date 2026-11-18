@@ -6,6 +6,7 @@ import { check, sleep } from 'k6';
 
 const BASE = __ENV.BASE || 'http://host.docker.internal:3000';
 const VUS = Number(__ENV.VUS || 1);
+const OUT = __ENV.OUT || '/out'; // Docker-runneren bruger /out; den lokale runner (koer-belastning-lokal.ps1) sætter en Windows-mappe
 
 export const options = {
   vus: VUS,
@@ -38,5 +39,5 @@ export function handleSummary(data) {
     max_ms: m.http_req_duration.values.max,
     fejl_pct: m.http_req_failed.values.rate * 100,
   };
-  return { [`/out/resultat-${VUS}.json`]: JSON.stringify(resultat, null, 2) };
+  return { [`${OUT}/resultat-${VUS}.json`]: JSON.stringify(resultat, null, 2) };
 }
