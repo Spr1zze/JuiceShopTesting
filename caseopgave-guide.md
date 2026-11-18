@@ -13,16 +13,64 @@
 - Lav jeres eget GitHub repo til tests, scripts og rapport
 - VIGTIGT: ingen scanning/belastning på den offentlige herokuapp-side, kun lokalt
 
-## Roller (kan kombineres)
-- Softwaretester: testplan, funktionstest, unit + integrationstest
-- Automatisering: scriptede tests, CI/CD, performance
-- Sikkerhed: login, hashing, HTTPS, SQLi/XSS, ZAP
-- Koordinator: plan, rapport, præsentation
+## Samarbejde – hvor ligger hvad
+- Rapport: ét Google Doc, delt med alle som Redaktør
+- Kode: ét GitHub repo, de andre tilføjet som collaborators
+- Skærmbilleder: sæt direkte ind i Google Doc under det rigtige afsnit
+- Juice Shop selv: hver kører den lokalt i Docker (skal ikke i repoet)
+- Aflevering: Google Doc som PDF + link til GitHub repo
+
+Repo-mapper (hver arbejder i sin egen mappe = ingen konflikter):
+- `tests/unit/` + `tests/ui-test/` → A
+- `tests/integration/` + `tests/api/` + `load/` + `.github/workflows/` → B
+- `security/` (bcrypt demo, ZAP rapport, login.ts før/efter) → C
+
+Git-regel: `git pull` før du starter, commit + push ofte
+
+## Fordeling på 3 personer
+
+### Person A – Test
+- Testplan + 6 testcases (funktionstest)
+- 4 unit tests
+- UX-test med testperson
+- HTTPS/TLS demo
+
+### Person B – Automatisering
+- 2 integrationstests (API + database)
+- Scriptet browser/API-test
+- CI/CD pipeline (GitHub Actions)
+- Belastningstest + performancetabel
+
+### Person C – Sikkerhed
+- Login + adgangskontrol test
+- MD5 vs bcrypt + bcrypt demo
+- SQLi + XSS test
+- ZAP scan + risikotabel
+- Fix af SQLi + gentest
+
+### Fælles (alle 3)
+- Koordinator går på skift (A onsdag formiddag, B onsdag eftermiddag, C torsdag)
+- Hver skriver rapportafsnit om sin egen del
+- Go/No-Go og konklusion skrives sammen
+- Præsentation: hver præsenterer sin egen del
+
+### Ting der binder delene sammen
+- A's testcases → B automatiserer 1–2 af dem
+- C's SQLi fix → B laver en test i CI der er rød før fix og grøn efter
+- C's fund → A skriver dem ind i testplanen som fejl
+
+### Så alle forstår det hele
+- Start onsdag: alle 3 kører Juice Shop, prøver happy path og SQLi login sammen (30 min)
+- 2 tjekpunkter (onsdag kl. ~14 + torsdag morgen): hver viser de andre hvad de har lavet (10 min hver)
+- Review på kryds: A tjekker C's del, B tjekker A's, C tjekker B's
+- Generalprøve: hver skal kunne forklare én af de andres dele, da lærerne kan spørge alle
 
 ## Tidsplan
-- Onsdag: opstart, roller, testplan, funktionstest, unit/integration, start på automatisering
-- Torsdag morgen: CI/CD, performance, UX, sikkerhed
-- Torsdag før 14: rapport færdig + aflever
+- Onsdag formiddag: alle sammen opsætning + happy path → så hver sin del
+- Onsdag eftermiddag: A testplan + unit, B integration + CI, C SQLi/XSS + bcrypt
+- Torsdag morgen: A UX + HTTPS, B belastningstest, C ZAP + fix + gentest
+- Torsdag 11–13: rapport samles, Go/No-Go sammen, generalprøve
+- Torsdag før 14: aflever
 
 ---
 

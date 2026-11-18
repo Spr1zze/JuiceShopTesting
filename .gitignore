@@ -1,0 +1,51 @@
+# ---- Afhængigheder og build ----
+node_modules/
+dist/
+build/
+out/
+coverage/
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# ---- Test-artefakter (Jest, Playwright, k6 osv.) ----
+playwright-report/
+test-results/
+.nyc_output/
+*.lcov
+
+# ---- Værktøjs-junk ----
+.impeccable/
+.vscode/
+.idea/
+*.swp
+
+# ---- OS ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Miljø / hemmeligheder ----
+.env
+.env.*
+*.pem
+*.key
+
+# ---- Lokale rapport-hjælpere (bor i Google Docs, skal ikke i repo) ----
+noter.md
+rapport-skabelon.html
+rapport-skabelon.md
+testcases.html
+tc5-tc7-forklaring.html
+zap-juiceshop.md
+zap-report.html
+
+# ---- Juice Shop runtime-data (skal ikke i repo, bygges af Docker) ----
+juice-shop/node_modules/
+juice-shop/dist/
+juice-shop/build/
+juice-shop/.git/
+juice-shop/logs/
+juice-shop/data/*.sqlite
+juice-shop/uploads/
+juice-shop/ftp/
