@@ -1,42 +1,15 @@
-npm notice run juiceshop-integration-tests@1.0.0 npx
-npm notice run jest --runInBand --no-color
-PASS ./02-produktsoegning.test.js
-  IT-2: Produktsøgning (API + database)
-    √ søgning på "apple" returnerer kun produkter, hvor navn eller beskrivelse indeholder "apple" (34 ms)
-    √ produkter har det forventede format (id, navn, pris > 0) og er sorteret efter navn (19 ms)
-    √ søgning er ikke case-sensitiv (APPLE giver samme resultat som apple) (29 ms)
-    √ UGYLDIGT: søgning uden match returnerer 200 og en tom liste (ikke en fejl) (19 ms)
-    √ GRÆNSE: tom søgning returnerer hele kataloget (38 ms)
-    √ UGYLDIGT: specialtegn (apostrof, <script>) giver ikke serverfejl og ingen falske match (39 ms)
-    √ GRÆNSE: "%" er et SQL LIKE-wildcard og matcher hele kataloget (observation, ikke en fejl) (17 ms)
-
-PASS ./04-kendte-fejl.test.js
-  Kendte fejl: ugyldigt input som bør afvises (jf. testplan TC5-TC7)
-    √ FEJL-1 (middel): registrering med ugyldig e-mail bør afvises med 400 (60 ms)
-    √ FEJL-2 (middel): registrering hvor passwordRepeat er forskellig bør afvises med 400 (26 ms)
-    √ FEJL-3 (høj): registrering uden password bør afvises med 400 (18 ms)
-    √ FEJL-4 (middel): negativt antal i kurven (-1) bør afvises med 400 (62 ms)
-    √ FEJL-5 (middel): antal 0 i kurven bør afvises med 400 (46 ms)
-    √ FEJL-6 (høj): en bruger bør ikke kunne læse en andens kurv (/rest/basket/1) -> 401/403 (64 ms)
-
-PASS ./03-kurv.test.js
-  IT-3: Indkøbskurv (autentificering + API + database)
-    √ gyldig vare lægges i kurven og kan aflæses igen med korrekt antal og pris (33 ms)
-    √ UGYLDIGT: antal over produktets grænse afvises med 400 og vises ikke i kurven (19 ms)
-    √ UGYLDIGT: man kan ikke lægge varer i en andens kurv (fremmed BasketId) -> 401 (5 ms)
-    √ UGYLDIGT: uden login-token afvises både tilføjelse og aflæsning med 401 (6 ms)
-    √ UGYLDIGT: ikke-eksisterende produkt kan ikke lægges i kurven (fejlstatus, ingen vare gemt) (22 ms)
+PASS ./02-indkoebskurv.test.js (5.117 s)
+  IT-2: Indkøbskurv (autentificering + API + database)
+    √ GYLDIGT: vare lægges i kurven og aflæses igen med korrekt navn, antal og total (54 ms)
+    √ UGYLDIGT: antal over produktets grænse afvises med 400 og intet gemmes i kurven (23 ms)
 
 PASS ./01-registrering-login.test.js
   IT-1: Registrering og login (API + database)
-    √ gyldig registrering gemmes i databasen og returnerer 201 uden klartekst-password (26 ms)
-    √ den oprettede bruger kan logge ind og får et JWT-token + kurv-id (data læst tilbage fra databasen) (14 ms)
-    √ UGYLDIGT: samme e-mail kan ikke registreres to gange (unik-constraint i databasen) -> 400 (18 ms)
-    √ UGYLDIGT: forkert password afvises med 401 og giver intet token (10 ms)
-    √ UGYLDIGT: ukendt bruger og tom login-body afvises med 401 (22 ms)
+    √ GYLDIGT: bruger registreres og kan derefter logge ind med token (data skrevet til og læst fra databasen) (47 ms)
+    √ UGYLDIGT: forkert password afvises med 401 og giver intet token (12 ms)
 
-Test Suites: 4 passed, 4 total
-Tests:       23 passed, 23 total
+Test Suites: 2 passed, 2 total
+Tests:       4 passed, 4 total
 Snapshots:   0 total
-Time:        5.156 s
+Time:        6.337 s
 Ran all test suites.
