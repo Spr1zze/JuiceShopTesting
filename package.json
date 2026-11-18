@@ -2,7 +2,8 @@
   "name": "juiceshoptesting",
   "private": true,
   "scripts": {
-    "test:unit": "jest tests/unit --verbose"
+    "test:unit": "jest tests/unit --verbose",
+    "test:api": "jest tests/api --verbose"
   },
   "jest": {
     "roots": ["<rootDir>/tests"]

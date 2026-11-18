@@ -1,0 +1,78 @@
+# CI-pipeline: kører alle vores tests automatisk ved hvert push og pull request.
+# Juice Shop startes som Docker-service, så testene rammer en rigtig, kørende webshop.
+name: Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tests:
+    name: Unit-, integrations- og API-tests
+    runs-on: ubuntu-latest
+    services:
+      juiceshop:
+        image: bkimminich/juice-shop:v20.4.0
+        ports:
+          - 3000:3000
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Installer afhængigheder
+        run: npm ci
+
+      - name: Unit tests (U1-U4)
+        run: npm run test:unit
+
+      - name: Vent på at Juice Shop er startet
+        run: |
+          for i in $(seq 1 60); do
+            curl -sf http://localhost:3000 > /dev/null && echo "Juice Shop kører" && exit 0
+            sleep 2
+          done
+          echo "Juice Shop startede ikke" && exit 1
+
+      - name: Integrationstests (IT-1, IT-2)
+        working-directory: tests/integration
+        run: |
+          npm ci
+          npm test
+
+      - name: API-test (TC3 søgning)
+        run: npx jest tests/api/tc3 --verbose
+
+  sikkerhed:
+    name: Sikkerhedstest (TC7 SQL injection)
+    runs-on: ubuntu-latest
+    # Rød indtil SQLi-fixet er lavet. continue-on-error gør, at fundet vises uden at stoppe resten.
+    continue-on-error: true
+    services:
+      juiceshop:
+        image: bkimminich/juice-shop:v20.4.0
+        ports:
+          - 3000:3000
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Installer afhængigheder
+        run: npm ci
+
+      - name: Vent på at Juice Shop er startet
+        run: |
+          for i in $(seq 1 60); do
+            curl -sf http://localhost:3000 > /dev/null && echo "Juice Shop kører" && exit 0
+            sleep 2
+          done
+          echo "Juice Shop startede ikke" && exit 1
+
+      - name: API-test (TC7 SQL injection i login)
+        run: npx jest tests/api/tc7 --verbose
