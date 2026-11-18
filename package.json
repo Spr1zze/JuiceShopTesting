@@ -1,0 +1,13 @@
+{
+  "name": "juiceshoptesting",
+  "private": true,
+  "scripts": {
+    "test:unit": "jest tests/unit --verbose"
+  },
+  "jest": {
+    "roots": ["<rootDir>/tests"]
+  },
+  "devDependencies": {
+    "jest": "29.7.0"
+  }
+}
