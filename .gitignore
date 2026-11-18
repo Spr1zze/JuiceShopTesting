@@ -31,14 +31,8 @@ desktop.ini
 *.pem
 *.key
 
-# ---- Lokale rapport-hjælpere (bor i Google Docs, skal ikke i repo) ----
-noter.md
-rapport-skabelon.html
-rapport-skabelon.md
-testcases.html
-tc5-tc7-forklaring.html
-zap-juiceshop.md
-zap-report.html
+# ---- Lokal mappe: smid ALT lokalt junk herind, det ignoreres automatisk ----
+lokalt/
 
 # ---- Juice Shop runtime-data (skal ikke i repo, bygges af Docker) ----
 juice-shop/node_modules/
